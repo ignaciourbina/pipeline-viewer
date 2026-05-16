@@ -1,0 +1,119 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  min-height: 100vh;
+}
+
+#banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+
+.banner-main { flex: 1; min-width: 0; }
+.banner-main h1 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+#banner-meta { font-size: 0.78rem; margin-top: 0.15rem; }
+
+.banner-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.banner-controls .spacer { width: 0.75rem; }
+
+#target {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+#target:empty { display: none; }
+
+#toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+#filter {
+  flex: 1 1 18rem;
+  min-width: 12rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-input);
+  color: var(--fg);
+  font: inherit;
+}
+
+#layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 22rem;
+  min-height: 0;
+}
+#view {
+  overflow: auto;
+  min-height: 0;
+  border-right: 1px solid var(--border);
+}
+#detail {
+  overflow: auto;
+  padding: 1rem 1.1rem;
+  min-height: 0;
+}
+
+#footer {
+  border-top: 1px solid var(--border);
+  padding: 0.35rem 1rem;
+  font-size: 0.78rem;
+  background: var(--bg-elev);
+}
+
+.muted { color: var(--fg-muted); }
+.hidden { display: none !important; }
+
+button, .btn {
+  font: inherit;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-input);
+  color: var(--fg);
+  cursor: pointer;
+}
+button:hover, .btn:hover { background: var(--bg-hover); }
+
+label.ctrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.view { display: none; }
+.view.active { display: block; }

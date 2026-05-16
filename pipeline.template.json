@@ -1,0 +1,47 @@
+{
+  "$schema": "./pipeline.schema.json",
+  "study": "studyN-name",
+  "target": "One paragraph describing what this pipeline produces and the identification strategy it implements.",
+  "version": 1,
+  "last_updated": "2026-01-01",
+  "notes": [
+    "Ordered list of canonical scripts required to reproduce the final estimand.",
+    "Validation / diagnostic scripts are NOT listed here.",
+    "Each step lists status (implemented | todo), inputs, outputs, and the steps it depends on.",
+    "This file is a living document. Bump last_updated and refresh depends_on when reshuffling."
+  ],
+  "steps": [
+    {
+      "step": "00",
+      "label": "ingest_raw",
+      "path": "scripts/00_ingest_raw.py",
+      "language": "python",
+      "stage": "data_prep",
+      "status": "todo",
+      "description": "First step: read raw inputs and emit a tidy intermediate. Replace this description with what the step actually does.",
+      "inputs": [
+        "data/raw/source.csv"
+      ],
+      "outputs": [
+        "data/processed/intermediate.parquet"
+      ],
+      "depends_on": []
+    },
+    {
+      "step": "01",
+      "label": "transform",
+      "path": "scripts/01_transform.py",
+      "language": "python",
+      "stage": "data_prep",
+      "status": "todo",
+      "description": "Second step: depends on step 00. Demonstrates the depends_on edge that the DAG view renders.",
+      "inputs": [
+        "data/processed/intermediate.parquet"
+      ],
+      "outputs": [
+        "data/processed/final.parquet"
+      ],
+      "depends_on": ["00"]
+    }
+  ]
+}

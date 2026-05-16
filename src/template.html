@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>@TITLE@</title>
+
+<style>
+@CSS@
+</style>
+</head>
+<body class="theme-light">
+
+<header id="banner">
+  <div class="banner-main">
+    <h1 id="banner-title">@TITLE@</h1>
+    <div id="banner-meta" class="muted"></div>
+  </div>
+  <div class="banner-controls">
+    <button id="tab-table" class="tab active" data-tab="table">table</button>
+    <button id="tab-dag" class="tab" data-tab="dag">dag</button>
+    <span class="spacer"></span>
+    <label class="ctrl"><input type="checkbox" id="auto-refresh"> auto-refresh</label>
+    <label class="ctrl"><input type="checkbox" id="dark"> dark</label>
+    <button id="reload" class="btn">reload</button>
+  </div>
+</header>
+
+<section id="target" class="muted"></section>
+
+<section id="toolbar">
+  <input id="filter" type="search" placeholder="filter on label / description / path…" />
+  <div id="chip-stages" class="chips" aria-label="stage filters"></div>
+  <div id="chip-statuses" class="chips" aria-label="status filters"></div>
+  <div id="chip-langs" class="chips" aria-label="language filters"></div>
+</section>
+
+<main id="layout">
+  <section id="view">
+    <div id="view-table" class="view active">
+      <table id="steps-table">
+        <thead>
+          <tr>
+            <th data-sort="step">step</th>
+            <th data-sort="label">label</th>
+            <th data-sort="stage">stage</th>
+            <th data-sort="status">status</th>
+            <th data-sort="language">lang</th>
+            <th data-sort="path">path</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="table-empty" class="muted empty hidden">no steps match the current filter.</div>
+    </div>
+    <div id="view-dag" class="view">
+      <div id="dag-canvas"></div>
+    </div>
+  </section>
+
+  <aside id="detail">
+    <div id="detail-empty" class="muted">select a step from the table or graph.</div>
+    <article id="detail-body" class="hidden"></article>
+  </aside>
+</main>
+
+<footer id="footer">
+  <span id="status-line" class="muted">loading…</span>
+</footer>
+
+<!-- Build-injected JSON block. When absent, the data layer fetches ./pipeline.json. -->
+@DATA_BLOCK@
+
+<script>
+@JS@
+</script>
+
+</body>
+</html>

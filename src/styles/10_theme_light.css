@@ -1,0 +1,25 @@
+.theme-light {
+  --bg: #fafafa;
+  --bg-elev: #f1f1f0;
+  --bg-input: #ffffff;
+  --bg-hover: #eaeaea;
+  --fg: #1a1a1a;
+  --fg-muted: #6b6b6b;
+  --border: #d8d8d6;
+  --accent: #2b5fb8;
+  --accent-fg: #ffffff;
+  --row-hover: #eef3fb;
+  --row-selected: #dde8fb;
+
+  --status-implemented-bg: #d6efd8;
+  --status-implemented-fg: #1f5a30;
+  --status-todo-bg: #fbe5c2;
+  --status-todo-fg: #7a4c0d;
+  --status-other-bg: #e2e2e1;
+  --status-other-fg: #3a3a3a;
+
+  --dag-node-bg: #ffffff;
+  --dag-node-border: #b8b8b6;
+  --dag-edge: #888888;
+  --dag-selected: #2b5fb8;
+}
