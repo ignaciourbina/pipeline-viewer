@@ -125,6 +125,12 @@ Default `--json` is `../../study2-chile-v2/pipeline.json`. Build emits:
 - **Detail pane** (right) — description, inputs, outputs, and clickable
   links for `depends_on` and the computed `depended on by` (reverse
   edges).
+- **Load file…** — opens a native file picker and reads any
+  pipeline-shaped JSON from disk. Pure client-side: works in both
+  builds, including `viewer.html` under `file://`. Auto-refresh is
+  switched off when a local file is loaded (there's no remote mtime to
+  poll). The banner shows `from disk: <filename>` while the local file
+  is active; click **reload** to return to the URL/inline source.
 - **Auto-refresh** — polls the JSON's `Last-Modified` / `ETag` every 5s
   (dynamic build only; static `viewer.html` has nothing to poll).
 - **Dark mode** — toggle persists in `localStorage`.

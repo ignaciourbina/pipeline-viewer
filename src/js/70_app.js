@@ -11,6 +11,7 @@ PV.app = (function () {
     if (raw.version != null) bits.push("v" + raw.version);
     if (raw.last_updated) bits.push("updated " + raw.last_updated);
     bits.push((PV.state.steps.length || 0) + " steps");
+    if (PV.state.loadedFilename) bits.push("from disk: " + PV.state.loadedFilename);
     $("#banner-meta").textContent = bits.join(" · ");
 
     const tgt = $("#target");
@@ -40,7 +41,27 @@ PV.app = (function () {
   }
 
   async function reload() {
+    PV.state.loadedFilename = null;
     await PV.data.load();
+    renderBanner();
+    refresh();
+  }
+
+  async function loadLocalFile(file) {
+    if (!file) return;
+    try {
+      await PV.data.loadFromBlob(file);
+    } catch (_) {
+      return;
+    }
+    // A local file has no remote mtime to poll — disable auto-refresh.
+    const ar = $("#auto-refresh");
+    if (ar.checked) {
+      ar.checked = false;
+      PV.polling.stop();
+      try { localStorage.setItem("pv.auto", "0"); } catch (_) {}
+    }
+    PV.state.selected = null;
     renderBanner();
     refresh();
   }
@@ -50,6 +71,17 @@ PV.app = (function () {
       b.addEventListener("click", () => setTab(b.dataset.tab));
     });
     $("#reload").addEventListener("click", reload);
+    const fileBtn = $("#load-file");
+    const fileInput = $("#load-file-input");
+    if (fileBtn && fileInput) {
+      fileBtn.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (file) await loadLocalFile(file);
+        // reset so picking the same file again re-fires change
+        e.target.value = "";
+      });
+    }
     $("#dark").addEventListener("change", e => {
       document.body.classList.toggle("theme-dark", e.target.checked);
       document.body.classList.toggle("theme-light", !e.target.checked);

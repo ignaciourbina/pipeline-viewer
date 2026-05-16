@@ -63,6 +63,40 @@ PV.data = (function () {
     PV.state.reverseDeps = reverse;
   }
 
+  async function loadFromBlob(file) {
+    let text;
+    try {
+      text = await file.text();
+    } catch (e) {
+      setStatusLine("read error: " + e.message);
+      throw e;
+    }
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      setStatusLine("parse error in " + file.name + ": " + e.message);
+      throw e;
+    }
+    if (!data || typeof data !== "object" || Array.isArray(data)) {
+      const msg = "not a pipeline.json (top-level must be an object)";
+      setStatusLine(msg);
+      throw new Error(msg);
+    }
+    if (!Array.isArray(data.steps)) {
+      const msg = "not a pipeline.json (missing 'steps' array)";
+      setStatusLine(msg);
+      throw new Error(msg);
+    }
+    ingest(data);
+    PV.state.loadedFilename = file.name;
+    setStatusLine(
+      "loaded " + file.name + " (" + file.size.toLocaleString() + " bytes, "
+      + data.steps.length + " steps)"
+    );
+    return data;
+  }
+
   async function fetchModified() {
     const url = resolveJsonUrl();
     try {
@@ -71,5 +105,5 @@ PV.data = (function () {
     } catch (_) { return null; }
   }
 
-  return { load, ingest, resolveJsonUrl, fetchModified };
+  return { load, ingest, loadFromBlob, resolveJsonUrl, fetchModified };
 })();

@@ -15,5 +15,6 @@ window.PV = window.PV || {
     activeTab: "table",
     lastModified: null,
     pollTimer: null,
+    loadedFilename: null,
   },
 };
